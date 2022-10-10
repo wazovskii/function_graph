@@ -5,4 +5,4 @@
 #### Примеры работы:
 - ![Alt text](/img/sinx.png?raw=true "Title")
 
-- ![Alt text](/img/сosx.png?raw=true "Title")
+- ![Alt text](/img/cosx.png?raw=true "Title")
