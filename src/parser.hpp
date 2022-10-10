@@ -1,30 +1,29 @@
 #ifndef SRC_PARSER_HPP_
 #define SRC_PARSER_HPP_
 
-
+#include "calculate.hpp"
 #include <string>
 #include <vector>
 #include <iostream>
-#include <unordered_map>
 #include <stack>
-#include <cmath>
 
-#define Pi 3.14
-#define Width 80
-#define Heigth 25
+class parser {
+    private:
+        std::string input;
+        std::vector<std::string> elements;
 
-std::unordered_map<std::string, int> priorities = { {"+", 2}, {"-", 2}, {"*", 3}, {"/", 3}, {"(", 1},
-                                                  {")", 5}, {"sin", 4}, {"cos", 4}, {"tan", 4}, {"ln", 4},
-                                                  {"sqrt", 4}, {"ctg", 4}, {"tg", 4}
-                                                };
+        bool check_for_errors();
+        bool check_brackets();
+        void prepare_buffer();
+        void parse_unary_minus();
+        void parse_mul();
+        bool check_func_names();
+        void tokenize_string();
+        int get_last_type(char in);
 
-std::string avalible_functions[] = {"sin", "sqrt", "cos", "ctg", "tan", "ln"};
-
-
-void draw_graph(std::vector<std::string> elements);
-int get_priority(std::string in);
-void translate_to_polish(std::vector<std::string>& _elements);
-double calculate(std::vector<std::string> elements, double x);
-double func_two_args(std::string op, double a, double b);
-double func_one_arg(std::string op, double a);
+    public:
+        parser(std::string input_);
+        std::vector<std::string> run();
+        std::vector<std::string> get_tokens();
+};
 #endif    // SRC_PARSER_HPP_
