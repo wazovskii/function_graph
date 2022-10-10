@@ -6,7 +6,7 @@ bool parser::check_for_errors() {
 
 bool parser::check_brackets() {
     std::stack<char> brackets;
-    for (int i = 0; i < input.size(); i++) {
+    for (size_t i = 0; i < input.size(); i++) {
         if (input[i] == '(') {
             brackets.push(input[i]);
             continue;
@@ -34,7 +34,7 @@ void parser::prepare_buffer() {
 
 void parser::parse_unary_minus() {
     char last = 0;
-    for (int i = 0; i < (int)input.size(); i++) {
+    for (size_t i = 0; i < input.size(); i++) {
         if ((input[i] == '-') && (last == '(')) {
             input[i] = '~';
         } else if ((input[i] == '-') && (!isdigit(last) && (get_priority(std::string(1, last) + ' ') < 3))) {
@@ -45,7 +45,6 @@ void parser::parse_unary_minus() {
 }
 
 void parser::parse_mul() {
-    int j = 0;
     int last = 0;
     for (size_t i = 0; i < input.size(); i++) {
         if (last && input[i] == 'x') {
@@ -65,7 +64,7 @@ bool parser::check_func_names() {
         }
     }
 
-    for (int i = 0; i < input_copy.size(); i++) {
+    for (size_t i = 0; i < input_copy.size(); i++) {
         if (isalpha(input_copy[i]) && (input_copy[i] != 'x')) {
             return false;
         }
@@ -77,7 +76,7 @@ void parser::tokenize_string() {
     std::string tmp;
     int last = get_last_type(input[0]);
     tmp.push_back(input[0]);
-    for (int i = 1; i < (int)input.size(); i++) {
+    for (size_t i = 1; i < input.size(); i++) {
         if (last != get_last_type(input[i])) {
             elements.push_back(tmp);
             tmp = "";
@@ -108,7 +107,6 @@ parser::parser(std::string input_) : input(input_) {}
 
 std::vector<std::string> parser::run() {
     std::string buffer;
-    int error = 0;
     if (check_for_errors()) {
         prepare_buffer();
     } else {

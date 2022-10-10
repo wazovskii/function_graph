@@ -4,7 +4,7 @@ void translate_to_polish(std::vector<std::string> &_elements) {
     std::stack<std::string> elements;
     std::vector<std::string> out;
     int j = 0;
-    for (int i = 0; i < (int)_elements.size(); i++) {
+    for (size_t i = 0; i < _elements.size(); i++) {
         if (get_priority(_elements[i]) == 0) {
             out.push_back(_elements[i]);
         } else {

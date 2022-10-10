@@ -1,19 +1,18 @@
 #include "calculate.hpp"
 
 double calculate(std::vector<std::string> elements, double x) {
-    int i = 0;
     std::stack<std::string> operation;
-    for (int i = 0; i < elements.size(); i++) {
+    for (size_t i = 0; i < elements.size(); i++) {
         std::string token = elements[i];
         if (token == "x")
             token = std::to_string(x);
         if (get_priority(token) == 0) {
             operation.push(token);
-        } else if (get_priority(token) > 2) {
+        } else if (get_priority(token) > 3) {
             double a = std::stod(operation.top());
             operation.pop();
             operation.push(std::to_string(func_one_arg(token, a)));
-        } else if (get_priority(token) <= 2) {
+        } else if (get_priority(token) <= 3) {
             double a = std::stod(operation.top());
             operation.pop();
             double b = std::stod(operation.top());
@@ -38,7 +37,7 @@ double func_two_args(std::string op, double a, double b) {
 }
 
 double func_one_arg(std::string op, double a) {
-    double result;
+    double result = 0.0;
     if (op == "sin")
         result = sin(a);
     else if (op == "cos")
