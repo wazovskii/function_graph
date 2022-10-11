@@ -29,7 +29,7 @@ int main() {
     parser *parse = new parser(input);
     parse->run();
     std::vector<std::string> tokens = parse->get_tokens();
-    if (tokens.size() > 1) {
+    if (tokens.size() > 0) {
         translate_to_polish(tokens);
         draw_graph(tokens);
     }

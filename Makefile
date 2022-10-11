@@ -16,7 +16,11 @@ $(ODIR)/%.o: $(SDIR)/%.cpp
 $(OUT): $(OBJS) 
 	$(CC) $^ -o $(OUT)
 
+test: $(OBJS)
+	$(CC) -c tests/test.cpp $(FLAGS)
+	$(CC) -lgtest build/calculate.o build/parser.o build/polish_notation.o test.o -o test
+
 .PHONY: clean
 
 clean:
-	rm -rf $(ODIR) $(OUT)
+	rm -rf $(ODIR) $(OUT) test test.o

@@ -103,15 +103,14 @@ int parser::get_last_type(char in) {
     return result;
 }
 
-parser::parser(std::string input_) : input(input_) {}
+parser::parser(std::string input_) : input(input_) {
+    elements = {};
+}
 
 std::vector<std::string> parser::run() {
     std::string buffer;
     if (check_for_errors()) {
         prepare_buffer();
-    } else {
-        printf("Error\n");
-        exit(0);
     }
     return elements;
 }

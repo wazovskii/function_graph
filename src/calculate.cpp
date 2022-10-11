@@ -2,36 +2,53 @@
 
 double calculate(std::vector<std::string> elements, double x) {
     std::stack<std::string> operation;
+    
     for (size_t i = 0; i < elements.size(); i++) {
         std::string token = elements[i];
-        if (token == "x")
-            token = std::to_string(x);
         if (get_priority(token) == 0) {
             operation.push(token);
         } else if (get_priority(token) > 3) {
-            double a = std::stod(operation.top());
+            double a;
+            if (operation.top() == "x")
+                a = x;
+            else
+                a = std::stod(operation.top());
             operation.pop();
-            operation.push(std::to_string(func_one_arg(token, a)));
+            std::ostringstream result_to_string;
+            result_to_string << func_one_arg(token, a);
+            operation.push(result_to_string.str());
+            result_to_string.clear();
         } else if (get_priority(token) <= 3) {
-            double a = std::stod(operation.top());
+            double a;
+            if (operation.top() == "x")
+                a = x;
+            else
+                a = std::stod(operation.top());
             operation.pop();
-            double b = std::stod(operation.top());
+            double b;
+            if (operation.top() == "x")
+                b = x;
+            else
+                b = std::stod(operation.top());
             operation.pop();
-            operation.push(std::to_string(func_two_args(token, a, b)));
+            std::ostringstream result_to_string;
+            result_to_string << func_two_args(token, b, a);
+            operation.push(result_to_string.str());
+            result_to_string.clear();
         }
     }
     return std::stod(operation.top());
 }
 
 double func_two_args(std::string op, double a, double b) {
-    double result;
+    double result = 0;
     if (op == "+")
         result = a + b;
-    if (op == "-")
+    else if (op == "-")
         result = a - b;
-    if (op == "/")
+    else if (op == "/")
         result = a / b;
-    if (op == "*")
+    else if (op == "*")
         result = a * b;
     return result;
 }
